@@ -1,0 +1,129 @@
+<!-- 3일차 투두 리스트 만들기-->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO DO LIST</title>
+</head>
+<body style="text-align: center;">
+   
+    <div class="w3-panel" style="border: 1px solid #ccc; padding: 0px; display: inline-block;">
+        <h2> 📝TO DO LIST </h2>
+        
+        <!-- 전체/해결/미해결 부분 showlist를 사용해서 클릭 시 볼 수 있게 -->
+        <button type="button" onclick="showList('all')" style='background-color: skyblue'>전체</button>
+        <button type="button" onclick="showList('resolved')" style='background-color: skyblue'>완료</button>
+        <button type="button" onclick="showList('unresolved')" style='background-color: skyblue'>미완료</button>
+        <br>
+        
+        <!-- 할 일 입력 인풋:inputtodo // 추가하는 버튼:add-->
+        <input type="text" id="inputtodo" placeholder="여기에 할일을 입력">
+        <button type="button" onclick="add()" style='background-color: white'>➕</button>
+        <br>
+        
+        <!-- 우선순위 부분 :ranked-->
+        <label>
+            <input type="radio" name="ranked" value="낮음">낮음
+        </label>
+        <label>
+            <input type="radio" name="ranked" value="보통">보통
+        </label>
+        <label>
+            <input type="radio" name="ranked" value="높음">높음
+        </label>
+        <label>
+            <input type="radio" name="ranked" value="아주 높음">아주 높음
+        </label>
+        <hr>
+        
+        <!-- 추가된 부분 -->
+        <h4>✍️LIST</h4>
+        <div id='listContainer'></div>
+         </div>
+
+
+    <script>
+        // 할 일 목록
+        const todoList = [];
+
+        // 할 일 추가 
+        function add() {
+            const inputtodo = document.getElementById('inputtodo').value; //입력한 부분
+            const radio = document.querySelector('input[name="ranked"]:checked'); //우선순위
+            const isResolved = false; 
+
+            //입력과 우선순위 선택 시 보여지는 부분
+            if (inputtodo && radio) {
+                const radioValue = radio.value;
+                const todoItem = {
+                    content: inputtodo, //입력
+                    priority: radioValue, //선택
+                    resolved: isResolved //전체/해결/미해결 부분 
+                };
+                todoList.push(todoItem);
+                showList('all'); // 리스트 갱신
+            } 
+        }
+
+        // 할 일 수정 -->> 이건 챗지피티 사용...
+        function edit(index) {
+            const content = todoList[index].content;
+            const priority = todoList[index].priority;
+
+            const newText = prompt('수정할 내용:', content);
+            if (newText !== null) {
+                const newPriority = prompt('수정할 우선순위', priority);
+                if (newPriority !== null) {
+                    todoList[index].content = newText;
+                    todoList[index].priority = newPriority;
+                    showList('all'); // 리스트 갱신
+                }
+            }
+        }
+
+        //삭제 부분
+        function remove(index) {
+            todoList.splice(index, 1); // 배열에서 해당 인덱스의 항목 제거
+            showList('all'); // 리스트 갱신
+        }
+
+        // 할 일 목록 showlist
+        function showList(filter) { //리스트컨테이너가 화면에 보여지는 부분
+            const listContainer = document.getElementById('listContainer');
+            listContainer.innerHTML = ''; 
+
+            //필터리스트가 전체/해결/미해결 부분
+            let filteredList = todoList;
+            if (filter === 'resolved') {
+                filteredList = todoList.filter(item => item.resolved);
+            } else if (filter === 'unresolved') {
+                filteredList = todoList.filter(item => !item.resolved);
+            }
+
+            // 할일 입력할 때마다 밑에 추가됨
+            filteredList.forEach((item, index) => {
+                const checkboxId = `checkbox_${index}`;
+                const listItem = document.createElement('div');
+                listItem.innerHTML = `
+                    <input type="checkbox" id="${checkboxId}" onchange="toggleResolve(${index})" ${item.resolved ? 'checked' : ''}>
+                    <label for="${checkboxId}">
+                    <span style='color:red;'>${item.priority}</span> - ${item.content}
+                    </label>
+
+                    <button type="button" onclick="edit(${index})">✏️</button>
+                    <button type="button" onclick="remove(${index})">🗑️</button>
+                `;
+                listContainer.appendChild(listItem);
+            });
+        }
+
+        //여기가 완료/미완료 필터부분
+        function toggleResolve(index) {
+            todoList[index].resolved = !todoList[index].resolved;
+            showList('all'); // 리스트 갱신
+        }
+    </script>
+</body>
+</html>
