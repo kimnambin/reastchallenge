@@ -1,4 +1,5 @@
-2일차 타이머 만들기
+3일차 투두리스트 만들기
 
-![스크린샷 2024-01-16 135047](https://github.com/kimnambin/reastchallenge/assets/127464935/9aa56e7f-8a87-4746-8d72-13a3038f502b)
-![스크린샷 2024-01-16 135029](https://github.com/kimnambin/reastchallenge/assets/127464935/4ee39740-ccea-46cf-be7e-fc036c2afed0)
+
+![스크린샷 2024-01-17 155515](https://github.com/kimnambin/reastchallenge/assets/127464935/ab892710-2289-4290-b58f-1cea62e428df)
+![스크린샷 2024-01-17 155500](https://github.com/kimnambin/reastchallenge/assets/127464935/47481916-0157-4618-8149-39a1c3ff8f6a)
