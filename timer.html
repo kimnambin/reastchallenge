@@ -21,45 +21,61 @@
 
 <!-- 타이머 기능 말그대로 스타트->시작 , 스탑->멈춤 이런식....-->
 <script>
+
+  //타이머를 0초부터
   let timer;
   let seconds = 0;
 
+  //스타트 버튼 1초씩 업데이트 setInterval
   function start() {
     timer = setInterval(update, 1000);
   }
 
+  //스탑 버튼 -> 정지 = clearInterval
   function stop() {
     clearInterval(timer);
   }
 
+
+  //리셋 버튼 -> 정지와 0초로 업데이트
   function reset() {
     clearInterval(timer);
     seconds = 0;
     update();
   }
 
-//시:분:초가 업로드 되는 부분
+  // 시:분:초가 업데이트 되는 부분
   function update() {
-    const hours = String(Math.floor(seconds / 3600)).padStart(2, "0");
-    const minutes = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
+    const hours = String(Math.floor(seconds / 3600)).padStart(2, "0"); //1시간을 3600초로 나눔 + 1시간을 01시간으로 나타냄
+    const minutes = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0"); 
     const remainingSeconds = String(seconds % 60).padStart(2, "0");
-    
+
+    // 00:00:00으로 보여줌 hours: minutes : remainingSeconds `(빽틱)은 변수나 표현식을 사용할 때 씀
     document.getElementById('clock').innerText = `${hours}:${minutes}:${remainingSeconds}`;
-    seconds++;
+    //카운트 다운을 위함
+    seconds--;
   }
 
   // h1에 시:분:초를 입력할 수 있도록 하는 부분
   function inputtime() {
-    document.getElementById('clock').contentEditable = true;
+    document.getElementById('clock').contentEditable = true; //변경을 가능하게 함
     document.getElementById('clock').focus();
   }
-
-  document.getElementById('clock').addEventListener('blur', function() {
-    totalSeconds = getTotalSecondsFromClock();
-    update();
-    document.getElementById('clock').contentEditable = false;
+  //변경 시 'blur' 이벤트핸들러 사용 
+  document.getElementById('clock').addEventListener('blur', function () { 
+    seconds = getTotalSecondsFromClock(); //getTotalSecondsFromClock() 함수 사용
+    update(); // 타이머 갱신
+    document.getElementById('clock').contentEditable = false; //더이상 시간을 바꾸지 못하게 함
   });
 
+  // 시:분:초를 초로 변환하는 함수
+  // 그니까 입력한 시간을 나태내주는 함수 getTotalSecondsFromClock
+  //1시간 -> 01:00:00 
+  function getTotalSecondsFromClock() { 
+    const clockText = document.getElementById('clock').innerText;
+    const [hours, minutes, seconds] = clockText.split(':').map(Number);
+    return hours * 3600 + minutes * 60 + seconds;
+  }
 </script>
 
 </body>
