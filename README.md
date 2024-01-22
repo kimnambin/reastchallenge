@@ -1,6 +1,5 @@
-4일차 캘린더 만들기
+5일차 미니인턴 클론코딩
 
 
 
-![스크린샷 2024-01-18 165416](https://github.com/kimnambin/reastchallenge/assets/127464935/ee0e0de5-f18d-438a-ab99-6153a858f254)
-![스크린샷 2024-01-18 165347](https://github.com/kimnambin/reastchallenge/assets/127464935/8438e671-6d7c-4416-b68f-19940f871629)
+![스크린샷 2024-01-19 171313](https://github.com/kimnambin/reastchallenge/assets/127464935/843de041-23f7-4953-9a19-32b09ace0cdd)
