@@ -1,22 +1,30 @@
-<!-- 캘러설 만들기--><!-- 참고 : https://sorydory.tistory.com/entry/JavaScript-%EC%BA%90%EB%9F%AC%EC%85%80Carousel-%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%8D%94-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84-->
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>캘러셀 만들기</title>
+    <title>캐러셀 만들기</title>
 </head>
+
 <body>
-   <!-- 여기가 캘러셀 부분-->
+    <!-- 여기가 캐러셀 부분-->
     <div class="carousel-wrapper">
         <!-- 왼쪽으로 가지는 버튼-->
         <button class="move left" type="button">⏪</button>
         <div class="carousel">
-            <img src='img/day1.png' />
-            <img src='img/day2.png' />
-            <img src='img/day3.png' />
-            <img src='img/day4.png' />
+            <div class="slide">
+                <img src='img/day1.png' />
+            </div>
+            <div class="slide">
+                <img src='img/day2.png' />
+            </div>
+            <div class="slide">
+                <img src='img/day3.png' />
+            </div>
+            <div class="slide">
+                <img src='img/day4.png' />
+            </div>
         </div>
         <!-- 오른쪽으로 가지는 버튼-->
         <button class="move right" type="button">⏩</button>
@@ -28,34 +36,26 @@
 
         const carousel = document.querySelector('.carousel');
 
-        //0부터 시작 -->> 시작점
+        // 0부터 시작하며, 시작 시 첫 번째 슬라이드만 보이도록 설정
         let index = 0;
+        showSlide(index);
 
         leftButton.addEventListener('click', () => {
-            if (index === 0) {
-                index = 3;
-            } else { //클릭 시 마다 인덱스를 1씩 마이너스 하면서 왼쪽으로 이동
-                index -= 1;
-            }
-
-            //버튼 크기 조절
-            carousel.style.transform = `translate3d(-${500 * index}px, 0, 0)`;
+            index = (index - 1 + 4) % 4; // 왼쪽으로 이동
+            showSlide(index);
         });
 
-        //인덱스 3까지 갈 수 있도록 (한계점)
         rightButton.addEventListener('click', () => {
-            if (index === 3) {
-                index = 0;
-            } else { //클릭 시 마다 인덱스를 1씩 플러스 하면서 오른쪽으로 이동
-                index += 1;
-            }
-
-            carousel.style.transform = `translate3d(-${500 * index}px, 0, 0)`;
+            index = (index + 1) % 4; // 오른쪽으로 이동
+            showSlide(index);
         });
+
+        function showSlide(index) {
+            const slideWidth = document.querySelector('.slide').offsetWidth;
+            carousel.style.transform = `translate3d(-${slideWidth * index}px, 0, 0)`;
+        }
     </script>
 
-
-    
     <style>
         * {
             box-sizing: border-box;
@@ -69,12 +69,18 @@
 
         .carousel-wrapper > .carousel {
             display: flex;
-            transform: translate3d(0,0,0);
+            transform: translate3d(0, 0, 0);
             transition: transform 0.2s;
+            overflow: hidden; /* 현재 보이는 부분 외에는 숨김 */
         }
 
-        .carousel-wrapper > .carousel > img {
-            width: 500px;
+        .carousel-wrapper > .carousel > .slide {
+            flex: 0 0 500px; /* 각 슬라이드의 고정된 너비 설정 */
+            overflow: hidden; /* 너비 이외의 내용은 숨김 */
+        }
+
+        .carousel-wrapper > .carousel > .slide > img {
+            max-width: 100%;
             height: 300px;
         }
 
@@ -98,4 +104,5 @@
         }
     </style>
 </body>
+
 </html>
