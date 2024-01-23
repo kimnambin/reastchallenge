@@ -1,6 +1,6 @@
-6일차 캘러셀 만들기
+7일차 캘러셀 만들기
 
 
+![스크린샷 2024-01-23 110649](https://github.com/kimnambin/reastchallenge/assets/127464935/81d54036-b8ce-4925-8076-b1a6782f41e2)
 
-![캐러셀](https://github.com/kimnambin/reastchallenge/assets/127464935/374db33c-d95a-49c5-965f-0d56f8b8a775)
-![스크린샷 2024-01-22 135512](https://github.com/kimnambin/reastchallenge/assets/127464935/cfa28b4c-5557-4e1e-8971-32bbcee0fdc0)
+
